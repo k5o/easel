@@ -26,10 +26,13 @@ var TwitterInput = React.createClass({
         <h3>
           Step 1: Enter Twitter Handle
         </h3>
+        <p>
+          Press 'enter' when you're done
+        </p>
         <span className="at">
           @
         </span>
-        <input type="text" onKeyPress={this.handleSubmit} autofocus />
+        <input type="text" className="twitter-input" onKeyPress={this.handleSubmit} autofocus />
       </div>
     );
   }

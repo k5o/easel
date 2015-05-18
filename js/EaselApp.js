@@ -10,16 +10,13 @@ var EaselApp = React.createClass({
   },
 
   handleTwitterName: function (name) {
-    console.log("received: " + name)
-    var foo = this
-    debugger
+    var component = this;
 
     cb.__call(
       "users_show",
       { screen_name: name },
       function (reply) {
-        console.log(reply)
-        foo.setState({
+        component.setState({
           initiated: true,
           handle: reply.screen_name,
           avatar: reply.profile_image_url.replace("_normal", ""),
@@ -27,23 +24,20 @@ var EaselApp = React.createClass({
           title: reply.description
         })
       },
-      true // this parameter required
-    );
-  },
-
-  componentDidUpdate: function() {
-    console.log("Refreshing!");
-    debugger
+      true
+    )
   },
 
   render: function() {
     return (
       <div>
-        <Header/>
+        <Header />
 
         <TwitterInput onTwitterSubmit={this.handleTwitterName} inputValue={this.state.handle} />
 
         <Easel {...this.state} />
+
+        <About />
       </div>
     );
   }

@@ -7,6 +7,13 @@ var Easel = React.createClass({
     title: React.PropTypes.string
   },
 
+  getInitialState: function() {
+    return {
+      name: this.props.name,
+      title: this.props.title
+    }
+  },
+
   render: function() {
     return (
       <div className={this.props.initiated ? "" : "hidden"}>
@@ -14,20 +21,24 @@ var Easel = React.createClass({
           Step 2: Edit your Easel
         </h3>
 
+        <p>
+          Edit your name and title directly on the easel
+        </p>
+
         <div className="outer">
           <div className="inner" />
           <img src={this.props.avatar} />
           <span className="text">
             <div>
               <span className="bold">
-                {this.props.handle}
+                @{this.props.handle}
               </span>
-              <span>
-                {this.props.name}
+              <span className="name">
+                <EditableInput defaultValue={this.props.name} />
               </span>
             </div>
             <div className="title">
-              {this.props.title}
+              <EditableInput defaultValue={this.props.title} />
             </div>
           </span>
         </div>
