@@ -1,0 +1,98 @@
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: 'Lato';
+  font-size: 40px;
+  font-weight: 300;
+  color: #313A42;
+}
+
+a {
+  color: #7aabe0;
+  text-decoration: none;
+}
+
+h1, h2, h3, p {
+  text-align: center;
+}
+
+h1 {
+  font-weight: 300;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+h1 .logo {
+  font-family: 'Lobster';
+}
+
+.outer {
+  background: #E2EFF5;
+  padding: 56px 100px 144px 100px;
+  width: 1024px;
+  height: 512px;
+  position: relative;
+  margin: auto;
+  max-width: 1024px;
+}
+
+.inner {
+  background: #617282;
+  height: 312px;
+  border-radius: 5px;
+  text-align: left;
+}
+
+img {
+  margin-top: -30px;
+  margin-left: 30px;
+  width: 140px;
+  height: 140px;
+  border-radius: 140px;
+  text-align: left;
+}
+
+.text {
+  position: absolute;
+  left: 290;
+  bottom: 45;
+  text-align: left;
+}
+
+.bold {
+  font-family: 'Lato';
+  font-size: 40px;
+  font-weight: 700;
+}
+
+.title {
+  font-size: 36px;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.step-one {
+  text-align: center;
+}
+
+.step-one .at {
+  font-size: 24px;
+}
+
+input {
+  margin-left: 2px;
+  padding: 5px 2px;
+  width: 360px;
+  outline: none;
+  font-size: 24px;
+  border: 1px solid #ddd;
+}

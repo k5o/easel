@@ -2,12 +2,31 @@
 <html>
   <head>
     <meta http-equiv='Content-type' content='text/html; charset=utf-8'>
+    <link href='http://fonts.googleapis.com/css?family=Lobster|Lato:300,400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="./css/index.css">
     <title>Easel for Pablo</title>
   </head>
   <body>
     <div id="easel">
 
+
+    <script type="text/javascript" src="./build/codebird.js"></script>
+    <script type="text/javascript">
+      var cb = new Codebird;
+      cb.setConsumerKey("nope", "wat");
+
+      cb.__call(
+        "oauth2_token",
+        {},
+        function (reply) {
+          var bearer_token = reply.access_token;
+        }
+      );
+    </script>
     <script src="./build/react.js"></script>
     <script src="./build/JSXTransformer.js"></script>
+    <script type="text/jsx" src="./js/Header.js"></script>
+    <script type="text/jsx" src="./js/Easel.js"></script>
+    <script type="text/jsx" src="./js/TwitterInput.js"></script>
     <script type="text/jsx" src="./js/EaselApp.js"></script>
   </body>
