@@ -28,6 +28,17 @@ var Easel = React.createClass({
     ctx.closePath();
   },
 
+  // Image resizing in canvas only preserves quality if resized by factors of 2 or less.
+  // This takes 512x512 => 256x256, which is later transformed into 140x140
+  halvedImage: function(imageObj) {
+    var cc = document.createElement("canvas");
+    var ctx = cc.getContext("2d");
+    cc.width = imageObj.width / 2;
+    cc.height = imageObj.height / 2;
+    ctx.drawImage(imageObj, 0, 0, cc.width, cc.height);
+    return cc;
+  },
+
   componentWillReceiveProps: function(props) {
     var canvas = document.getElementById('myCanvas');
     var context = canvas.getContext('2d');
@@ -50,13 +61,17 @@ var Easel = React.createClass({
     context.fill();
 
     {/* Avatar */}
-    imageObj.onload = function(){
-      context.drawImage(imageObj,130,340,140,140);
-      context.globalCompositeOperation = 'source-over';
-      context.beginPath();
-      context.arc(200, 410, 70, 0, 2*Math.PI, true);
-      context.fill();
-    }
+
+    imageObj.onload=function(){
+      context.save();
+      this.roundRect(context, 130, 340, 140, 140, 5);
+      context.clip();
+      context.drawImage(this.halvedImage(imageObj), 130, 340, 140, 140);
+      context.restore();
+      context.lineWidth = 4;
+      context.strokeStyle = '#313A42';
+      context.stroke();
+    }.bind(this)
 
     {/* Handle */}
     context.font = '40px Lato';
