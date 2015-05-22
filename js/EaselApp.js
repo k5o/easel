@@ -10,20 +10,18 @@ var EaselApp = React.createClass({
   },
 
   handleTwitterName: function (name) {
-    var component = this;
-
     cb.__call(
       "users_show",
       { screen_name: name },
       function (reply) {
-        component.setState({
+        this.setState({
           initiated: true,
           handle: reply.screen_name,
           avatar: reply.profile_image_url.replace("_normal", ""),
           name: reply.name,
           title: reply.description
         })
-      },
+      }.bind(this),
       true
     )
   },
