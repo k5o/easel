@@ -10,7 +10,11 @@ var EditableInput = React.createClass({
   },
 
   handleChange: function(event) {
-    this.setState({val: event.target.value});
+    var value = event.target.value;
+
+    this.setState({val: value}, function(){
+      this.props.onChange(value)
+    }.bind(this));
   },
 
   render: function() {

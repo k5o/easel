@@ -92,7 +92,7 @@ img {
 }
 
 .hidden {
-  visibility: hidden;
+  display: none;
 }
 
 .step-one {
@@ -134,6 +134,12 @@ img {
 .title .editable {
   width: 620px;
   font-size: 36px;
+}
+
+.generate-trigger {
+  text-align: center;
+  font-size: 24px;
+  margin: 24px 0;
 }
 
 .canvas-wrapper {

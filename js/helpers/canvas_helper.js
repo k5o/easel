@@ -24,7 +24,7 @@ CanvasHelper.prototype.halvedImage = function(image) {
   cc.height = image.height / 2;
   ctx.drawImage(image, 0, 0, cc.width, cc.height);
   return cc;
-},
+};
 
 // Max-width for text blocks
 CanvasHelper.prototype.truncateText = function (text, ctx, widthLimit) {
@@ -33,7 +33,7 @@ CanvasHelper.prototype.truncateText = function (text, ctx, widthLimit) {
   }
 
   return text;
-}
+};
 
 // External web fonts need to be loaded before canvas rendering
 CanvasHelper.prototype.loadFonts = function() {
@@ -44,4 +44,10 @@ CanvasHelper.prototype.loadFonts = function() {
   var wf = document.createElement("script");
   wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
   document.head.appendChild(wf);
-}
+};
+
+CanvasHelper.prototype.scrollToStep = function(stepNum) {
+  $('html, body').animate({
+    scrollTop: ($('.step-' + stepNum).offset().top)
+  }, 600);
+};

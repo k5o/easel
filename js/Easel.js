@@ -1,83 +1,47 @@
 var Easel = React.createClass({
   propTypes: {
-    initiated: React.PropTypes.bool,
+    currentStep: React.PropTypes.number,
     avatar: React.PropTypes.string,
     handle: React.PropTypes.string,
     name: React.PropTypes.string,
-    title: React.PropTypes.string
+    title: React.PropTypes.string,
+    handleCanvasGeneration: React.PropTypes.func,
   },
 
   getInitialState: function() {
     return {
+      step: 2,
       name: this.props.name,
       title: this.props.title
     }
   },
 
-  componentDidMount: function() {
-    var canvasHelper = new CanvasHelper();
-
-    canvasHelper.loadFonts();
+  componentWillReceiveProps: function(props) {
+    this.setState({
+      name: props.name,
+      title: props.title
+    });
   },
 
-  componentWillReceiveProps: function(props) {
-    var canvas = document.getElementById('easel-canvas');
-    var context = canvas.getContext('2d');
-    var avatar = new Image();
-    var handle = '@' + props.handle;
-    var canvasHelper = new CanvasHelper();
+  handleClick: function(event) {
+    event.preventDefault();
 
-    avatar.src = props.avatar;
-    canvas.width = 1024;
-    canvas.height = 512;
+    this.props.handleCanvasGeneration(this.state);
+  },
 
-    {/* Outer Rect */}
-    context.beginPath();
-    context.rect(0, 0, canvas.width, canvas.height);
-    context.fillStyle = '#E2EFF5';
-    context.fill();
+  handleNameEdit: function(value) {
+    this.setState({name: value});
+  },
 
-    {/* Inner Rect */}
-    canvasHelper.roundRect(context, 100, 60, 824, 312, 5);
-    context.fillStyle = '#617282';
-    context.fill();
-
-    {/* Avatar */}
-
-    avatar.onload = function(){
-      context.save();
-      canvasHelper.roundRect(context, 130, 340, 140, 140, 5);
-      context.clip();
-      context.drawImage(canvasHelper.halvedImage(avatar), 130, 340, 140, 140);
-      context.restore();
-      context.lineWidth = 4;
-      context.strokeStyle = '#313A42';
-      context.stroke();
-    }
-
-    {/* Handle */}
-    context.font = '700 40px Lato';
-    context.fillStyle = '#313A42';
-    var metrics = context.measureText(handle);
-    var width = metrics.width;
-    context.fillText(handle, 290, 410);
-
-    {/* Name */}
-    context.font = '300 40px Lato';
-    context.fillText(props.name, 290 + width + 20, 410);
-
-    {/* Title */}
-    context.font = '300 36px Lato';
-    context.fillStyle = '#313A42';
-    var widthLimit = 623;
-    context.fillText(canvasHelper.truncateText(props.title, context, widthLimit), 290, 460);
+  handleTitleEdit: function(value) {
+    this.setState({title: value});
   },
 
   render: function() {
     return (
-      <div className={this.props.initiated ? "" : "hidden"}>
+      <div className={this.props.currentStep >= this.state.step ? "step-" + this.state.step : "hidden"}>
         <h3>
-          Step 2: Edit your Easel
+          Step {this.state.step}: Edit your Easel
         </h3>
 
         <p>
@@ -97,27 +61,19 @@ var Easel = React.createClass({
                 @{this.props.handle}
               </span>
               <span className="name">
-                <EditableInput defaultValue={this.props.name} />
+                <EditableInput defaultValue={this.state.name} onChange={this.handleNameEdit} />
               </span>
             </div>
             <div className="title">
-              <EditableInput defaultValue={this.props.title} />
+              <EditableInput defaultValue={this.state.title} onChange={this.handleTitleEdit} />
             </div>
           </span>
         </div>
 
-        <h3>
-          Step 3: Save your Easel
-        </h3>
-
-        <p>
-          <b>Right click</b> your Easel below and select <b>Save Image As...</b>, saving it to your computer. You can then upload this file on{' '}
-          <a href="http://buffer.com/pablo">Pablo</a>.
-        </p>
-
-        <div className="canvas-wrapper">
-          <canvas id="easel-canvas" width="1024" height="512"></canvas>
+        <div className="generate-trigger">
+          <a href="#" onClick={this.handleClick}>Generate Easel</a>
         </div>
+
       </div>
     );
   }
