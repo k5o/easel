@@ -87,7 +87,7 @@ img {
   font-family: 'Lato';
   font-size: 40px;
   font-weight: 700;
-  margin-right: 15px;
+  margin-right: 18px;
   cursor: default;
 }
 
@@ -128,12 +128,16 @@ img {
 }
 
 .name .editable {
-  width: 464px;
+  width: 460px;
 }
 
 .title .editable {
   width: 620px;
   font-size: 36px;
+}
+
+.canvas-wrapper {
+  text-align: center;
 }
 
 .about {
