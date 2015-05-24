@@ -7,24 +7,15 @@
     <title>Easel for Pablo</title>
   </head>
   <body>
-    <div id="easel">
+    <div id="easel" />
 
 
     <script type="text/javascript" src="./build/codebird.js"></script>
-    <script type="text/javascript">
-      var cb = new Codebird;
-      cb.setConsumerKey("nope", "wat");
-
-      cb.__call(
-        "oauth2_token",
-        {},
-        function (reply) {
-          var bearer_token = reply.access_token;
-        }
-      );
-    </script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+    <script type="text/jsx" src="./js/helpers/twitter_helper.js"></script>
     <script src="./build/react-with-addons.js"></script>
     <script src="./build/JSXTransformer.js"></script>
+    <script type="text/jsx" src="./js/helpers/canvas_helper.js"></script>
     <script type="text/jsx" src="./js/Header.js"></script>
     <script type="text/jsx" src="./js/Easel.js"></script>
     <script type="text/jsx" src="./js/TwitterInput.js"></script>
