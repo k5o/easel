@@ -48,12 +48,16 @@ var Canvas = React.createClass({
     avatar.onload = function(){
       context.save();
       canvasHelper.roundRect(context, 130, 340, 140, 140, 5);
+      context.shadowColor = '#777';
+      context.shadowBlur = 1;
+      context.shadowOffsetX = 2;
+      context.shadowOffsetY = 2;
+      context.lineWidth = 8;
+      context.strokeStyle = 'white';
+      context.stroke();
       context.clip();
       context.drawImage(canvasHelper.halvedImage(avatar), 130, 340, 140, 140);
       context.restore();
-      context.lineWidth = 4;
-      context.strokeStyle = '#313A42';
-      context.stroke();
     }
 
     {/* Handle */}
