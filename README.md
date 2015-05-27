@@ -1,4 +1,4 @@
-# [Easel (for Pablo)](https://k5o.github.io/easel/)
+# [Easel (for Pablo)](http://k5o.github.io/easel/)
 
 This tool helps users of Buffer's [Pablo](https://buffer.com/pablo) upload their own branded image templates for social sharing. Originally inspired by @shpigford:
 
