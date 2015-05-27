@@ -8,7 +8,7 @@ var Header = React.createClass({
         </h1>
 
         <h2>
-          Branded templates for sharing on <a href="https://buffer.com/pablo">Pablo</a>
+          Generate branded templates to use with <a href="https://buffer.com/pablo">Pablo</a>
         </h2>
       </div>
     );
