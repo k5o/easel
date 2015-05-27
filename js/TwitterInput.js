@@ -1,6 +1,6 @@
 var TwitterInput = React.createClass({
   getInitialState: function() {
-    return { val: "" }
+    return { step: 1, val: "" }
   },
 
   handleSubmit: function(event) {
@@ -21,13 +21,19 @@ var TwitterInput = React.createClass({
   },
 
   render: function() {
+    var classSet = 'hidden';
+
+    if (this.props.currentStep === this.state.step) {
+      classSet = 'step-' + this.state.step;
+    }
+
     return (
-      <div className="step-one">
+      <div className={classSet}>
         <h3>
-          Step 1: Enter Twitter Handle
+          <strong>Step ({this.state.step}/3):</strong> Enter Twitter Handle
         </h3>
         <p>
-          Press 'enter' when you're done
+          Press <b>enter</b> when you're done
         </p>
         <span className="at">
           @

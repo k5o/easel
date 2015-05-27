@@ -15,20 +15,21 @@ var Canvas = React.createClass({
     }
   },
 
-  componentDidMount: function() {
-    var canvasHelper = new CanvasHelper();
+  handleBackClick: function(e) {
+    e.preventDefault();
 
-    canvasHelper.loadFonts();
+    this.props.handleBackClick();
   },
 
-  componentWillReceiveProps: function(props) {
+  componentDidMount: function() {
     var canvas = document.getElementById('easel-canvas');
     var context = canvas.getContext('2d');
     var avatar = new Image();
-    var handle = '@' + props.handle;
+    var handle = '@' + this.props.handle;
     var canvasHelper = new CanvasHelper();
 
-    avatar.src = props.avatar;
+    canvasHelper.loadFonts();
+    avatar.src = this.props.avatar;
     canvas.width = this.state.canvasWidth;
     canvas.height = this.state.canvasHeight;
 
@@ -69,30 +70,39 @@ var Canvas = React.createClass({
 
     {/* Name */}
     context.font = '300 40px Lato';
-    context.fillText(props.name, 290 + width + 20, 410);
+    context.fillText(this.props.name, 290 + width + 20, 410);
 
     {/* Title */}
     context.font = '300 36px Lato';
     context.fillStyle = '#313A42';
     {/* 623 is the width limit for 300 36px Lato, measured manually */}
     var widthLimit = 623;
-    context.fillText(canvasHelper.truncateText(props.title, context, widthLimit), 290, 460);
+    context.fillText(canvasHelper.truncateText(this.props.title, context, widthLimit), 290, 460);
   },
 
   render: function() {
+    var classSet = 'hidden';
+
+    if (this.props.currentStep === this.state.step) {
+      classSet = 'step-' + this.state.step;
+    }
+
     return (
-      <div className={this.props.currentStep >= this.state.step ? "step-" + this.state.step : "hidden"}>
+      <div className={classSet}>
         <h3>
-          Step {this.state.step}: Save your Easel
+          Step ({this.state.step}/3): Save your Easel
         </h3>
 
         <p>
-          <b>Right click</b> your Easel below and select <b>Save Image As...</b>, saving it to your computer. You can then upload this file on{' '}
-          <a href="http://buffer.com/pablo">Pablo</a>.
+          <b>Right click</b> your Easel below and select <b>Save Image As...</b>, saving it to your computer. Afterward, upload this file on <a href="http://buffer.com/pablo">Pablo</a>.
         </p>
 
         <div className="canvas-wrapper">
           <canvas id="easel-canvas" width={this.state.canvasWidth} height={this.state.canvasHeight}></canvas>
+        </div>
+
+        <div className="actions">
+          <a href="#" onClick={this.handleBackClick} className="back-button">Back</a>
         </div>
       </div>
     );

@@ -1,3 +1,5 @@
+var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+
 var Easel = React.createClass({
   propTypes: {
     currentStep: React.PropTypes.number,
@@ -16,6 +18,22 @@ var Easel = React.createClass({
     }
   },
 
+  adjustNameWidth: function() {
+    var $nameInput = $('input.input-name');
+    var handleWidth = $('.bold').width() + 18;
+    var newWidth = 620 - handleWidth;
+
+    $nameInput.css('width', newWidth);
+  },
+
+  autofocusInput: function() {
+    var $nameInput = $('input.input-name');
+    var strLength = $nameInput.val().length * 2;
+
+    $nameInput.focus();
+    $nameInput[0].setSelectionRange(strLength, strLength);
+  },
+
   componentWillReceiveProps: function(props) {
     this.setState({
       name: props.name,
@@ -23,10 +41,25 @@ var Easel = React.createClass({
     });
   },
 
-  handleClick: function(event) {
+  componentDidMount: function() {
+    this.adjustNameWidth();
+    this.autofocusInput();
+  },
+
+  componentDidUpdate: function() {
+    this.adjustNameWidth();
+  },
+
+  handleGenerateClick: function(event) {
     event.preventDefault();
 
     this.props.handleCanvasGeneration(this.state);
+  },
+
+  handleBackClick: function(event) {
+    event.preventDefault();
+
+    this.props.handleBackClick();
   },
 
   handleNameEdit: function(value) {
@@ -38,40 +71,62 @@ var Easel = React.createClass({
   },
 
   render: function() {
+    var classSet = 'hidden';
+
+    if (this.props.currentStep === this.state.step) {
+      classSet = 'step-' + this.state.step;
+    }
+
     return (
-      <div className={this.props.currentStep >= this.state.step ? "step-" + this.state.step : "hidden"}>
+      <div className={classSet}>
         <h3>
-          Step {this.state.step}: Edit your Easel
+          <strong>Step ({this.state.step}/3):</strong> Edit your Easel
         </h3>
 
         <p>
-          Edit your name and title directly on the easel.
+          Edit your name and title directly on the easel. When everything looks good, click <b>Generate Easel</b>.
         </p>
 
-        <p>
-          If/when you're happy with your results, click <b>Generate Easel</b>.
-        </p>
+        <ReactCSSTransitionGroup transitionName="outer" transitionAppear={true}>
+          <div className="outer">
 
-        <div className="outer">
-          <div className="inner" />
-          <img src={this.props.avatar} />
-          <span className="text">
-            <div>
-              <span className="bold">
-                @{this.props.handle}
-              </span>
-              <span className="name">
-                <EditableInput defaultValue={this.state.name} onChange={this.handleNameEdit} />
-              </span>
-            </div>
-            <div className="title">
-              <EditableInput defaultValue={this.state.title} onChange={this.handleTitleEdit} />
-            </div>
-          </span>
-        </div>
+            <ReactCSSTransitionGroup transitionName="inner" transitionAppear={true}>
+              <div className="inner" />
+            </ReactCSSTransitionGroup>
 
-        <div className="generate-trigger">
-          <a href="#" onClick={this.handleClick}>Generate Easel</a>
+            <img src={this.props.avatar} />
+
+            <ReactCSSTransitionGroup transitionName="callout" transitionAppear={true}>
+              <div className="callout callout-name">
+                Edit here
+              </div>
+
+              <div className="callout callout-title">
+                Edit here
+              </div>
+            </ReactCSSTransitionGroup>
+
+            <span className="text">
+              <div>
+                <span className="bold">
+                  @{this.props.handle}
+                </span>
+                <span className="name">
+                  <EditableInput defaultValue={this.state.name} onChange={this.handleNameEdit} autofocusable={true}/>
+                </span>
+              </div>
+              <div className="title">
+                <EditableInput defaultValue={this.state.title} onChange={this.handleTitleEdit} />
+              </div>
+            </span>
+
+          </div>
+        </ReactCSSTransitionGroup>
+
+
+        <div className="actions">
+          <a href="#" onClick={this.handleBackClick} className="back-button">Back</a>
+          <a href="#" onClick={this.handleGenerateClick}>Generate Easel</a>
         </div>
 
       </div>

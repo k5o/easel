@@ -18,8 +18,14 @@ var EditableInput = React.createClass({
   },
 
   render: function() {
+    var classSet = "editable";
+
+    if (this.props.autofocusable) {
+      classSet = "editable input-name";
+    }
+
     return (
-      <input type="text" value={this.state.val} onChange={this.handleChange} className="editable" />
+      <input type="text" value={this.state.val} onChange={this.handleChange} className={classSet} />
     );
   }
 });

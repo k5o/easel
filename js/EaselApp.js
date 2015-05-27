@@ -1,3 +1,5 @@
+var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+
 var EaselApp = React.createClass({
   getInitialState: function() {
     return {
@@ -10,6 +12,12 @@ var EaselApp = React.createClass({
     }
   },
 
+  handleBack: function() {
+    var currStep = this.state.currentStep;
+
+    this.setState({currentStep: currStep - 1});
+  },
+
   handleTwitterName: function (name) {
     cb.__call(
       "users_show",
@@ -19,7 +27,7 @@ var EaselApp = React.createClass({
           this.setState({
             errorMessage: "That Twitter handle doesn't exist, please try again."
           });
-        } else{
+        } else {
           this.setState({
             currentStep: 2,
             handle: reply.screen_name,
@@ -39,17 +47,27 @@ var EaselApp = React.createClass({
   },
 
   render: function() {
+    var component;
+
+    if (this.state.currentStep === 1) {
+      component = <TwitterInput onTwitterSubmit={this.handleTwitterName} {...this.state} />;
+    }
+    else if (this.state.currentStep === 2) {
+      component = <Easel {...this.state} handleBackClick={this.handleBack} handleCanvasGeneration={this.handleCanvasGeneration} />
+    }
+    else if (this.state.currentStep === 3) {
+      component = <Canvas {...this.state} handleBackClick={this.handleBack} />
+    }
+
     return (
       <div>
         <Header />
 
-        <TwitterInput onTwitterSubmit={this.handleTwitterName} inputValue={this.state.handle} />
-
         <p className="error">{this.state.errorMessage}</p>
+        <div className="component-wrapper">
+          {component}
+        </div>
 
-        <Easel {...this.state} handleCanvasGeneration={this.handleCanvasGeneration}/>
-
-        <Canvas {...this.state} />
 
         <About />
       </div>
