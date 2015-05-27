@@ -6,7 +6,7 @@ This tool helps users of Buffer's [Pablo](https://buffer.com/pablo) upload their
 
 Easel dynamically renders your own template like this:
 
-![Easel-enabled tweet](http://gyazo.com/55dd510cbc0bc737fb5e36ca3e3ebe0b)
+![Easel-enabled tweet](http://i.gyazo.com/55dd510cbc0bc737fb5e36ca3e3ebe0b.png)
 
 ## Notes
 
