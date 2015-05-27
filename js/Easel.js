@@ -94,7 +94,9 @@ var Easel = React.createClass({
               <div className="inner" />
             </ReactCSSTransitionGroup>
 
-            <img src={this.props.avatar} />
+            <div className="avatar-wrapper">
+              <img src={this.props.avatar} />
+            </div>
 
             <ReactCSSTransitionGroup transitionName="callout" transitionAppear={true}>
               <div className="callout callout-name">
@@ -125,8 +127,8 @@ var Easel = React.createClass({
 
 
         <div className="actions">
-          <a href="#" onClick={this.handleBackClick} className="back-button">Back</a>
-          <a href="#" onClick={this.handleGenerateClick}>Generate Easel</a>
+          <button href="#" onClick={this.handleBackClick} className="button back-button">Back</button>
+          <button href="#" onClick={this.handleGenerateClick} className="button generate-button">Generate Easel</button>
         </div>
 
       </div>

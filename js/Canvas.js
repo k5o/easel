@@ -15,8 +15,8 @@ var Canvas = React.createClass({
     }
   },
 
-  handleBackClick: function(e) {
-    e.preventDefault();
+  handleBackClick: function(event) {
+    event.preventDefault();
 
     this.props.handleBackClick();
   },
@@ -40,7 +40,7 @@ var Canvas = React.createClass({
     context.fill();
 
     {/* Inner Rect */}
-    canvasHelper.roundRect(context, 100, 60, 824, 312, 5);
+    canvasHelper.roundRect(context, 100, 57, 824, 312, 5);
     context.fillStyle = '#617282';
     context.fill();
 
@@ -62,22 +62,32 @@ var Canvas = React.createClass({
     }
 
     {/* Handle */}
+
     context.font = '700 40px Lato';
-    context.fillStyle = '#313A42';
     var metrics = context.measureText(handle);
     var width = metrics.width;
-    context.fillText(handle, 290, 410);
+
+    context.fillStyle = '#313A42';
+    context.fillText(handle, 290, 411);
 
     {/* Name */}
+
+    {/* Default x, CSS margin, metrics.width */}
+    var xOffsetForName = 290 + 19 + width;
+    {/* 602 is the width limit for 300 40px Lato, measured manually */}
+    var widthLimitForName = 602 - width;
+
     context.font = '300 40px Lato';
-    context.fillText(this.props.name, 290 + width + 20, 410);
+    context.fillText(canvasHelper.truncateText(this.props.name, context, widthLimitForName), xOffsetForName, 411);
 
     {/* Title */}
+
+    {/* 623 is the width limit for 300 36px Lato, measured manually */}
+    var widthLimitForTitle = 623;
+
     context.font = '300 36px Lato';
     context.fillStyle = '#313A42';
-    {/* 623 is the width limit for 300 36px Lato, measured manually */}
-    var widthLimit = 623;
-    context.fillText(canvasHelper.truncateText(this.props.title, context, widthLimit), 290, 460);
+    context.fillText(canvasHelper.truncateText(this.props.title, context, widthLimitForTitle), 291, 463);
   },
 
   render: function() {
@@ -94,7 +104,11 @@ var Canvas = React.createClass({
         </h3>
 
         <p>
-          <b>Right click</b> your Easel below and select <b>Save Image As...</b>, saving it to your computer. Afterward, upload this file on <a href="http://buffer.com/pablo">Pablo</a>.
+          <b>Right click</b> your Easel below and select <b>Save Image As...</b>, saving it to your computer.
+        </p>
+
+        <p>
+          Afterward, upload this file on <a href="http://buffer.com/pablo">Pablo</a>. For best results, deselect <b>Increased Contrast</b>.
         </p>
 
         <div className="canvas-wrapper">
@@ -102,7 +116,7 @@ var Canvas = React.createClass({
         </div>
 
         <div className="actions">
-          <a href="#" onClick={this.handleBackClick} className="back-button">Back</a>
+          <button href="#" onClick={this.handleBackClick} className="button back-button">Back</button>
         </div>
       </div>
     );

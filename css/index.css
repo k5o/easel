@@ -86,13 +86,23 @@ h1 .logo {
   text-align: left;
 }
 
+.avatar-wrapper {
+  position: absolute;
+  width: 148px;
+  height: 148px;
+  bottom: 28px;
+  left: 126px;
+  padding: 4px;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 1px 2px 2px #777;
+}
+
 img {
-  margin-top: -30px;
-  margin-left: 30px;
   width: 140px;
   height: 140px;
-  border-radius: 140px;
   text-align: left;
+  border-radius: 5px;
 }
 
 .text {
@@ -184,7 +194,7 @@ img {
   top: 0;
   bottom: 0;
   background: rgba(0,0,0,0.5);
-  z-index: 999998;
+  z-index: 999;
 }
 
 .about-modal {
@@ -198,7 +208,6 @@ img {
   padding: 20px;
   text-align: center;
   color: #000;
-  overflow: scroll;
   font-size: 16px;
   line-height: 1.3;
 }
@@ -282,8 +291,39 @@ img {
   opacity: 0.01;
 }
 
-.back-button {
-  font-size: 14px;
+.button {
+  display: inline-block;
+  color: white;
+  margin: auto;
+  text-align: center;
+  padding: 0 16px;
+  background: #69747D;
+  line-height: 40px;
+  border-radius: 3px;
+  position: relative;
+  border: 0;
+  font-size: 18px;
+  font-weight: 400;
+  cursor: pointer;
+  -webkit-appearance: none;
+}
+
+.button:hover {
+  border-bottom: 0px;
+  background: #545C63;
+}
+
+.button:focus {
+  outline: 0;
+}
+
+.generate-button {
+  margin-left: 10px;
+  background: #C9640F;
+}
+
+.generate-button:hover {
+  background: #AF570D;
 }
 
 .error {
